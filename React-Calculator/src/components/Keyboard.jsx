@@ -8,11 +8,16 @@ function Keyboard({
   deleteOnClick,
   operatorOnClick,
   equalOnClick,
+  changeSignOnClick,
 }) {
   return (
     <div className="keyboard-container">
       <Button buttonSymbol="AC" className="dark" handleClick={clearOnClick} />
-      <Button buttonSymbol="±" className="dark" handleClick={() => {}} />
+      <Button
+        buttonSymbol="±"
+        className="dark"
+        handleClick={changeSignOnClick}
+      />
       <Button
         buttonSymbol="%"
         className="dark"

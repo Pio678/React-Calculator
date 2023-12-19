@@ -19,14 +19,22 @@ body {
   place-content: center;
 }
 .calculator-container {
-  min-width: 40rem;
+  max-width: 41.5rem;
 }
 
 .screen-container {
-  margin-bottom: 0.5rem;
-  font-family: "Inconsolata", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  text-align: end;
+  justify-items: flex-end;
+  font-family: Oswald;
+  overflow: auto;
+  font-size: 5rem;
+  padding: 2rem;
   background-color: gray;
-  height: 10rem;
+  min-height: 10rem;
+  width: 100%;
 }
 
 .keyboard-container {
@@ -36,6 +44,7 @@ body {
   font-family: "Oswald", sans-serif;
   grid-template-columns: repeat(4, 10rem);
   grid-template-rows: repeat(5, 8rem);
+  margin-top: 0.5rem;
 }
 
 .button {

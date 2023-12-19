@@ -11,7 +11,12 @@ function Calculator() {
 
   function handleNumberInput(input) {
     //you cant have a number with first digit 0
-    if (inputData.currentNumber !== "0") {
+
+    const { currentNumber } = inputData;
+
+    const isCurrentNumberValid = !Number.isNaN(Number(currentNumber));
+
+    if (inputData.currentNumber !== "0" && isCurrentNumberValid) {
       setInputData((prevInputData) => {
         return {
           ...prevInputData,
@@ -23,6 +28,8 @@ function Calculator() {
 
   function handlePointInput() {
     const { currentNumber } = inputData;
+
+    const isCurrentNumberValid = !Number.isNaN(Number(currentNumber));
 
     // checking if current number isnt empty and doesnt include point
 
@@ -36,7 +43,7 @@ function Calculator() {
     }
   }
 
-  function handleDelete() {
+  function deleteDigit() {
     const { previousNumber, operator, currentNumber } = inputData;
 
     if (currentNumber === "" && operator === "") {
@@ -66,13 +73,16 @@ function Calculator() {
       });
   }
 
-  function handleClear() {
+  function clear() {
     setInputData({ previousNumber: "", operator: "", currentNumber: "" });
   }
 
   function handleOperatorInput(input) {
     const { currentNumber, operator } = inputData;
-    if (operator === "") {
+
+    const isCurrentNumberValid = !Number.isNaN(Number(currentNumber));
+
+    if (operator === "" && isCurrentNumberValid) {
       setInputData((prevInputData) => {
         return {
           previousNumber: currentNumber,
@@ -83,7 +93,7 @@ function Calculator() {
     }
   }
 
-  function handleEvaluate() {
+  function evaluate() {
     if (
       inputData.currentNumber === "" ||
       inputData.previousNumber === "" ||
@@ -119,15 +129,38 @@ function Calculator() {
         break;
     }
 
-    if (result === undefined || result === NaN) {
+    if (result === undefined || isNaN(result) || !isFinite(result)) {
       result = "Error";
     }
-    console.log(result);
 
     setInputData({
       previousNumber: "",
       operator: "",
       currentNumber: result.toString(),
+    });
+  }
+
+  function changeSign() {
+    let newOperator = inputData.operator;
+
+    let newNumber = -1 * Number(inputData.currentNumber);
+
+    if (inputData.operator === "+" && newNumber < 0) {
+      newOperator = "-";
+      newNumber = Math.abs(newNumber);
+    } else if (inputData.operator === "-" && newNumber < 0) {
+      newOperator = "+";
+      newNumber = Math.abs(newNumber);
+    }
+
+    const newNumberString = newNumber.toString();
+
+    setInputData((prevInputData) => {
+      return {
+        ...prevInputData,
+        operator: newOperator,
+        currentNumber: newNumberString,
+      };
     });
   }
 
@@ -137,10 +170,11 @@ function Calculator() {
       <Keyboard
         numberOnClick={handleNumberInput}
         pointOnClick={handlePointInput}
-        clearOnClick={handleClear}
-        deleteOnClick={handleDelete}
+        clearOnClick={clear}
+        deleteOnClick={deleteDigit}
         operatorOnClick={handleOperatorInput}
-        equalOnClick={handleEvaluate}
+        equalOnClick={evaluate}
+        changeSignOnClick={changeSign}
       />
     </div>
   );
