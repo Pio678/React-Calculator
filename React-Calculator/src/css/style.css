@@ -25,8 +25,9 @@ body {
 .screen-container {
   display: flex;
   align-items: center;
-  justify-content: end;
-  text-align: end;
+  justify-content: start;
+  text-align: start;
+
   justify-items: flex-end;
   font-family: Oswald;
   overflow: auto;

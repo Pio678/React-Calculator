@@ -11,7 +11,7 @@ function Calculator() {
 
   function handleNumberInput(input) {
     //you cant have a number with first digit 0
-
+    console.log(inputData.currentNumber.length);
     const { currentNumber } = inputData;
 
     const isCurrentNumberValid = !Number.isNaN(Number(currentNumber));
